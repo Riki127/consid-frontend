@@ -62,8 +62,8 @@ function Category(){
                 <thead>
                 <tr>
                     <th scope="col">Category</th>
-                    <th scope="col">Update</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
