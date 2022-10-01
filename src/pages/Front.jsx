@@ -2,7 +2,7 @@ import React from 'react';
 
 function Front(){
     return(
-        <h1>this is the homepage</h1>
+        <h1 className="text-center">Library</h1>
     )
 }
 export default Front

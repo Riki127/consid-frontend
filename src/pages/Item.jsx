@@ -13,6 +13,7 @@ function Item(){
     const [disablePages, setPagesDisable] = useState(false)
     const [disableRunTime, setRunTimeDisable] = useState(false)
 
+    const navigate = useNavigate()
     const types = ["Book", "DVD", "Audio Book", "Reference Book"]
 
     const initialData = ({
@@ -29,7 +30,7 @@ function Item(){
         borrowDate: null,
         type: ""
     })
-    const [formData, setFrom] = useState(initialData)
+    const [formData, setForm] = useState(initialData)
 
     useEffect(() => {
         fetchAllItems()
@@ -37,7 +38,7 @@ function Item(){
 
     const handleOnChange = (change) => {
         console.log(change.target.value)
-        setFrom({
+        setForm({
             ...formData,
             [change.target.name]: change.target.value
         })
@@ -49,7 +50,7 @@ function Item(){
         console.log(change.target.value)
         console.log(category)
         console.log(categories)
-        setFrom({
+        setForm({
             ...formData,
             categoryId: category
         })
@@ -116,8 +117,6 @@ function Item(){
             setPagesDisable(true)
             setAuthorDisable(true)
         }
-
-
     }
 
     const categorySelect = (category) => {
@@ -125,6 +124,17 @@ function Item(){
         formData.categoryId = category
     }
 
+    const updateItem = (item) => {
+        navigate("/item/update", {state:{item}})
+    }
+
+    const sortTable = (column) => {
+        console.log(column)
+        const sortedData = [...items].sort((x,y)=>
+            x[column].toLowerCase() > y[column].toLowerCase() ? 1 : -1
+        )
+        setItems(sortedData)
+    }
 
     return(
         <div className="container">
@@ -190,9 +200,9 @@ function Item(){
                 <thead>
                 <tr>
                     <th scope="col">Title</th>
-                    <th scope="col">Author</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Type</th>
+                    <th onClick={() => sortTable("type")}>Type</th>
+                    <th scope="col">Author</th>
                     <th scope="col">pages</th>
                     <th scope="col">Borrowable</th>
                     <th scope="col">Borrower</th>
@@ -206,15 +216,15 @@ function Item(){
                 items.map(item=>
                     <tr key={item.id}>
                         <td>{item.title}</td>
-                        <td>{item.author}</td>
                         <td>{item.categoryId.categoryName}</td>
                         <td>{item.type}</td>
+                        <td>{item.author}</td>
                         <td>{item.pages}</td>
                         <td>{item.isBorrowable.toString()}</td>
                         <td>{item.borrower}</td>
                         <td>{item.borrowDate}</td>
                         <td>
-                            <button type="button" className="btn btn-warning" >Update</button>
+                            <button type="button" className="btn btn-warning" onClick={() => updateItem(item)}>Update</button>
                         </td>
                         <td>
                             <button type="button" className="btn btn-danger" onClick={() => deleteItem(item.id)}>Delete</button>

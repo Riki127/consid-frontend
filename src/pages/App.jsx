@@ -9,7 +9,7 @@ import Checkin from "./Checkin";
 import Checkout from "./Checkout";
 import updateCategory from "./UpdateCategory";
 import UpdateCategory from "./UpdateCategory";
-
+import UpdateItem from "./UpdateItem"
 
 function App(){
     return(
@@ -22,6 +22,7 @@ function App(){
                 <Route path="/checkin" element={<Checkin/>}></Route>
                 <Route path="/checkout" element={<Checkout/>}></Route>
                 <Route path="/category/update/:id/:categoryName" element={<UpdateCategory/>}></Route>
+                <Route path="/item/update" element={<UpdateItem/>}></Route>
             </Routes>
         </BrowserRouter>
     );

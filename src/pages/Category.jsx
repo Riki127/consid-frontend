@@ -52,9 +52,11 @@ function Category(){
         <div className="container">
             <h1 className="text-center">Add new Category</h1>
             <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">Category</label>
+                <label className="form-label">Category</label>
                 <input className="form-control" type="text" value={category} onChange={(e) => setCategory(e.target.value)}/>
                 <div className="form-text">Must be a unique category</div>
+            </div>
+            <div className="d-flex justify-content-center mb-3">
                 <button onClick={addCategory} className="btn btn-primary">Submit</button>
             </div>
             <h1 className="text-center">Current Categories</h1>
