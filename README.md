@@ -5,9 +5,13 @@ A React based front-end that calls the [REST-API](https://github.com/Riki127/con
 ## Frameworks and tools
 
 List of dependencies:
+
 React
+
 React-router-dom
+
 Axios
+
 Bootstrap
 
 
