@@ -21,19 +21,20 @@ function Category(){
     }
 
     const addCategory = () => {
-        axios.post(`http://localhost:8080/category/add/${category}`)
-            .then(r =>{
-                alert(r.data)
-                setUpdate(false)
-            })
-            .catch(r =>{
-                alert(r.response.data)
-            })
+        if(category.length > 0){
+            axios.post(`http://localhost:8080/category/add/${category}`)
+                .then(r =>{
+                    alert(r.data)
+                    setUpdate(false)
+                })
+                .catch(r =>{
+                    alert(r.response.data)
+                })
+        }
+        else alert("Category can't be empty")
     }
 
     const deleteCategory = (category) => {
-        console.log(category.id)
-        console.log(category.categoryName)
         axios.delete(`http://localhost:8080/category/delete/${category.id}/${category.categoryName}`)
             .then(r => {
                 alert(r.data)

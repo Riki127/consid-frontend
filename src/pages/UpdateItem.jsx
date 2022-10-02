@@ -24,9 +24,6 @@ function UpdateItem(){
     const handleObjChange = (change) => {
         const id = change.target.value;
         const category = categories.find(category => category.id.toString() === id)
-        console.log(change.target.value)
-        console.log(category)
-        console.log(categories)
         setForm({
             ...formData,
             categoryId: category
@@ -34,12 +31,10 @@ function UpdateItem(){
     }
 
     const handleOnChange = (change) => {
-        console.log(change.target.value)
         setForm({
             ...formData,
             [change.target.name]: change.target.value
         })
-        console.log(formData)
     }
 
     const fetchAllCategories = () => {
@@ -51,7 +46,6 @@ function UpdateItem(){
     }
 
     const typeSelect = (type) => {
-        console.log(type)
         setTypeLoaded(true)
         setType(type)
         formData.type = type
@@ -76,14 +70,31 @@ function UpdateItem(){
     }
     
     const updateItem = () => {
-      axios.put('http://localhost:8080/library/update', formData)
-          .then(r =>{
-              alert(r.data)
-              navigate('/item')
-          })
-          .catch(r =>{
-              alert(r.response.data)
-          })
+        if(formValidation()){
+            axios.put('http://localhost:8080/library/update', formData)
+                .then(r =>{
+                    alert(r.data)
+                    navigate('/item')
+                })
+                .catch(r =>{
+                    alert(r.response.data)
+                })  
+        }
+        else alert("Please fill in the form correctly")
+    }
+
+    const formValidation = () => {
+        if(formData.type === "Reference Book" || formData.type === "Book" ) {
+            if(formData.title.length > 0 && formData.pages > 0 && formData.author.length > 0 && formData.categoryId.id != null ) {
+                return true
+            }
+        }
+        else if(formData.type === "DVD" || formData.type === "Audio Book"){
+            if(formData.title.length > 0 && formData.runTimeMinutes > 0 && formData.categoryId.id != null ) {
+                return true
+            }
+        }
+        return false
     }
 
     return(
@@ -97,7 +108,7 @@ function UpdateItem(){
                             <label className="col-form-label">Title</label>
                         </div>
                         <div className="col-auto">
-                            <input defaultValue={formData.title} type="text" id="title" className="form-control" name="title" onChange={handleOnChange}/>
+                            <input defaultValue={formData.title.replace(/\([^()]*\)/g, '')} type="text" id="title" className="form-control" name="title" onChange={handleOnChange}/>
                         </div>
                         <div className="col-auto">
                             <label className="col-form-label">Author</label>

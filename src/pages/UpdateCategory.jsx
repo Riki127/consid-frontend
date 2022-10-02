@@ -1,20 +1,25 @@
 import React, {useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 function UpdateCategory(){
     const { id }  = useParams()
     const { categoryName }  = useParams()
     const [newCategory, setCategory] = useState(categoryName)
+    const navigate = useNavigate()
 
     const updateCategory = () => {
-        axios.put(`http://localhost:8080/category/update/${id}/${categoryName}/${newCategory}`)
-            .then(r =>{
-                alert(r.data)
-            })
-            .catch(r =>{
-                alert(r.response.data)
-            })
+        if(newCategory.length > 0){
+            axios.put(`http://localhost:8080/category/update/${id}/${categoryName}/${newCategory}`)
+                .then(r =>{
+                    alert(r.data)
+                    navigate('/category')
+                })
+                .catch(r =>{
+                    alert(r.response.data)
+                })
+        }
+        else alert("Category can't be empty")
     }
 
     return(

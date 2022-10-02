@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a35094f1-975e-4c2a-8bae-8ae87190008a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Checkin.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Checkout.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Category.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Category.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Item.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateCategory.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/UpdateCategory.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/UpdateItem.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +51,7 @@
       <workItem from="1664523766670" duration="60000" />
       <workItem from="1664523831975" duration="26149000" />
       <workItem from="1664661674363" duration="3613000" />
+      <workItem from="1664741317342" duration="6378000" />
     </task>
     <servers />
   </component>

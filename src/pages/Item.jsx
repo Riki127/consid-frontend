@@ -40,7 +40,6 @@ function Item(){
     }, [isLoaded])
 
     const handleOnChange = (change) => {
-        console.log(change.target.value)
         setForm({
             ...formData,
             [change.target.name]: change.target.value
@@ -50,9 +49,6 @@ function Item(){
     const handleObjChange = (change) => {
         const id = change.target.value;
         const category = categories.find(category => category.id.toString() === id)
-        console.log(change.target.value)
-        console.log(category)
-        console.log(categories)
         setForm({
             ...formData,
             categoryId: category
@@ -76,14 +72,17 @@ function Item(){
     }
 
     const addItem = () => {
-        axios.post('http://localhost:8080/library/add', formData)
-            .then(r =>{
-                alert(r.data)
-                window.location.reload(false);
-            })
-            .catch(r =>{
-                alert(r.response.data)
-            })
+        if(formValidation()){
+            axios.post('http://localhost:8080/library/add', formData)
+                .then(r =>{
+                    alert(r.data)
+                    window.location.reload(false);
+                })
+                .catch(r =>{
+                    alert(r.response.data)
+                })
+        }
+        else alert("Please fill in the form correctly")
     }
 
     const deleteItem = (id) => {
@@ -98,7 +97,6 @@ function Item(){
     }
 
     const typeSelect = (type) => {
-        console.log(type)
         setTypeLoaded(true)
         setType(type)
         formData.type = type
@@ -122,17 +120,11 @@ function Item(){
         }
     }
 
-    const categorySelect = (category) => {
-        console.log(category)
-        formData.categoryId = category
-    }
-
     const updateItem = (item) => {
         navigate("/item/update", {state:{item}})
     }
 
     const sortTable = (column) => {
-        console.log(column)
         const sortedData = [...items].sort((x,y)=>
             x[column].toLowerCase() > y[column].toLowerCase() ? 1 : -1
         )
@@ -140,8 +132,6 @@ function Item(){
     }
 
     const handleCheckout = () => {
-        console.log(borrowerInput.current.value)
-        console.log(checkoutItem)
         if(borrowerInput.current.value.length > 3){
             axios.put(`http://localhost:8080/library/checkout/${borrowerInput.current.value}`,checkoutItem)
                 .then(r =>{
@@ -166,6 +156,19 @@ function Item(){
             })
     }
 
+    const formValidation = () => {
+        if(formData.type === "Reference Book" || formData.type === "Book" ) {
+            if(formData.title.length > 0 && formData.pages > 0 && formData.author.length > 0 && formData.categoryId.id != null ) {
+                return true
+            }
+        }
+        else if(formData.type === "DVD" || formData.type === "Audio Book"){
+            if(formData.title.length > 0 && formData.runTimeMinutes > 0 && formData.categoryId.id != null ) {
+                return true
+            }
+        }
+        return false
+    }
 
     return(
         <div className="container">
@@ -302,10 +305,6 @@ function Item(){
                         </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <pre>{JSON.stringify(formData, undefined, 2)}</pre>
-                <pre>{JSON.stringify(checkoutItem, undefined, 2)}</pre>
             </div>
         </div>
     )
