@@ -12,12 +12,6 @@ function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link active" aria-current="page" href="/category">Category</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/checkout">Checkout</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/checkin">Checkin</a>
-                        </li>
                     </ul>
                 </div>
             </div>

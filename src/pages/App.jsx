@@ -5,8 +5,6 @@ import Navbar from "./Navbar";
 import Front from "./Front";
 import Item from "./Item";
 import Category from "./Category";
-import Checkin from "./Checkin";
-import Checkout from "./Checkout";
 import updateCategory from "./UpdateCategory";
 import UpdateCategory from "./UpdateCategory";
 import UpdateItem from "./UpdateItem"
@@ -19,8 +17,6 @@ function App(){
                 <Route index element={<Front/>}></Route>
                 <Route path="/item" element={<Item/>}></Route>
                 <Route path="/category" element={<Category/>}></Route>
-                <Route path="/checkin" element={<Checkin/>}></Route>
-                <Route path="/checkout" element={<Checkout/>}></Route>
                 <Route path="/category/update/:id/:categoryName" element={<UpdateCategory/>}></Route>
                 <Route path="/item/update" element={<UpdateItem/>}></Route>
             </Routes>

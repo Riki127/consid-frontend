@@ -1,4 +1,4 @@
-import React, {useEffect, useState}  from 'react';
+import React, {useEffect, useState, useRef}  from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,9 @@ function Item(){
     const [disableAuthor, setAuthorDisable] = useState(false)
     const [disablePages, setPagesDisable] = useState(false)
     const [disableRunTime, setRunTimeDisable] = useState(false)
+    const [checkinItem, setCheckin] = useState()
+    const [checkoutItem, setCheckout] = useState()
+    const borrowerInput = useRef(null)
 
     const navigate = useNavigate()
     const types = ["Book", "DVD", "Audio Book", "Reference Book"]
@@ -136,6 +139,34 @@ function Item(){
         setItems(sortedData)
     }
 
+    const handleCheckout = () => {
+        console.log(borrowerInput.current.value)
+        console.log(checkoutItem)
+        if(borrowerInput.current.value.length > 3){
+            axios.put(`http://localhost:8080/library/checkout/${borrowerInput.current.value}`,checkoutItem)
+                .then(r =>{
+                    alert(r.data)
+                    setUpdate(false)
+                })
+                .catch(r =>{
+                    alert(r.response.data)
+                })
+        }
+        else alert("Borrower name needs atleast 4 characters")
+    }
+
+    const handleCheckin = (item) => {
+        axios.put(`http://localhost:8080/library/checkin`, item)
+            .then(r =>{
+                alert(r.data)
+                setUpdate(false)
+            })
+            .catch(r =>{
+                alert(r.response.data)
+            })
+    }
+
+
     return(
         <div className="container">
             <h1 className="text-center">Add new Item</h1>
@@ -229,12 +260,52 @@ function Item(){
                         <td>
                             <button type="button" className="btn btn-danger" onClick={() => deleteItem(item.id)}>Delete</button>
                         </td>
+                        {   item.isBorrowable &&
+                            <td>
+                                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setCheckout(item)}>
+                                    Check-out
+                                </button>
+                            </td>
+                        }
+                        {   (!item.isBorrowable && item.type !== "Reference Book") &&
+                            <td>
+                                <button type="button" className="btn btn-primary"
+                                        onClick={() => handleCheckin(item)}
+                                >Check-in</button>
+                            </td>
+                        }
+
                     </tr>
                 )}
                 </tbody>
             </table>
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Check-out</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                            <div className="modal-body">
+                                <div className="col-auto">
+                                    <label className="col-form-label">Borrower name</label>
+                                </div>
+                                <div className="col-auto">
+                                    <input ref={borrowerInput} type="text" id="checkout" className="form-control" name="checkout" />
+                                </div>
+                            </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleCheckout}>Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div>
                 <pre>{JSON.stringify(formData, undefined, 2)}</pre>
+                <pre>{JSON.stringify(checkoutItem, undefined, 2)}</pre>
             </div>
         </div>
     )
