@@ -12,7 +12,6 @@ function Item(){
     const [disableAuthor, setAuthorDisable] = useState(false)
     const [disablePages, setPagesDisable] = useState(false)
     const [disableRunTime, setRunTimeDisable] = useState(false)
-    const [checkinItem, setCheckin] = useState()
     const [checkoutItem, setCheckout] = useState()
     const borrowerInput = useRef(null)
 
@@ -235,7 +234,7 @@ function Item(){
                 <tr>
                     <th scope="col">Title</th>
                     <th scope="col">Category</th>
-                    <th onClick={() => sortTable("type")}>Type</th>
+                    <th onClick={() => sortTable("type")}>Type(Sortable)</th>
                     <th scope="col">Author</th>
                     <th scope="col">pages</th>
                     <th scope="col">Borrowable</th>

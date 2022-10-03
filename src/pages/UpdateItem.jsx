@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 function UpdateItem(){
@@ -10,14 +10,12 @@ function UpdateItem(){
     const [disableAuthor, setAuthorDisable] = useState(false)
     const [disablePages, setPagesDisable] = useState(false)
     const [disableRunTime, setRunTimeDisable] = useState(false)
-    const [typeLoaded, setTypeLoaded] = useState(false)
-    const [type, setType] = useState("Select type")
-    const types = ["Book", "DVD", "Audio Book", "Reference Book"]
     const navigate = useNavigate()
 
     useEffect(() => {
         fetchAllCategories()
         typeSelect(formData.type)
+        formData.title = formData.title.replace(/\([^()]*\)/g, '').trim()
     }, [isLoaded])
 
 
@@ -46,8 +44,6 @@ function UpdateItem(){
     }
 
     const typeSelect = (type) => {
-        setTypeLoaded(true)
-        setType(type)
         formData.type = type
         if(type === "Reference Book") {
             formData.isBorrowable = false
@@ -108,7 +104,7 @@ function UpdateItem(){
                             <label className="col-form-label">Title</label>
                         </div>
                         <div className="col-auto">
-                            <input defaultValue={formData.title.replace(/\([^()]*\)/g, '')} type="text" id="title" className="form-control" name="title" onChange={handleOnChange}/>
+                            <input defaultValue={formData.title} type="text" id="title" className="form-control" name="title" onChange={handleOnChange}/>
                         </div>
                         <div className="col-auto">
                             <label className="col-form-label">Author</label>
@@ -142,10 +138,8 @@ function UpdateItem(){
                         <div className="d-flex justify-content-center">
                             <button type="button" className="btn btn-warning" onClick={updateItem}>Update</button>
                         </div>
-
                     </div>
                 }
-                <pre>{JSON.stringify(formData, undefined, 2)}</pre>
             </div>
 
     )
